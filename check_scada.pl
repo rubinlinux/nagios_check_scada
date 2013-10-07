@@ -92,7 +92,7 @@ sub process_box {
         ($crit_min, $crit_max) = split(':', $options{'critical'});
     }
     foreach my $row (readin($url)) {
-       print Dumper($row);
+       #print Dumper($row);
        if( (defined $options{'address'} && $options{'address'} eq $row->{'address'})
           || (defined $searchdesc && $row->{'description'} =~ /$searchdesc/i)
        ) {
