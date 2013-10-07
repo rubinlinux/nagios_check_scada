@@ -1,5 +1,9 @@
 #!/usr/bin/perl
 #
+# A Nagios plugin to check SCADA 3000 boxes reports
+# 
+# Zebrafish International Resource Center (ZIRC)
+# Oct 2013
 
 use strict;
 use warnings;
@@ -7,9 +11,6 @@ use WWW::Mechanize;
 use HTML::TokeParser;
 use Data::Dumper;
 use Getopt::Long;
-
-#use Proc::PID::File;
-#die "Already running!" if Proc::PID::File->running(dir=>'/tmp');
 
 my %options;
 GetOptions( \%options, 'help', 'address:s', 'description:s','value:s', 'warning:s','critical:s', 'url:s', 'verbose' );
