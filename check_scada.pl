@@ -96,7 +96,7 @@ sub process_box {
        if( (defined $options{'address'} && $options{'address'} eq $row->{'address'})
           || (defined $searchdesc && $row->{'description'} =~ /$searchdesc/i)
        ) {
-            print "DEBUG: Found matching address/description. Now looking for state:\n"; if $options{'verbose'};
+            print "DEBUG: Found matching address/description. Now looking for state:\n" if $options{'verbose'};
             #Critical 
             if(   ( defined $options{'value'} && $options{'value'} ne $row->{'value'} )
                || ( defined $crit_min && $row->{'value'} < $crit_min )
