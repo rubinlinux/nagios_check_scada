@@ -101,23 +101,23 @@ sub process_box {
             if(   ( defined $options{'value'} && $options{'value'} ne $row->{'value'} )
                || ( defined $crit_min && $row->{'value'} < $crit_min )
                || ( defined $crit_max && $row->{'value'} > $crit_max) ) {
-                print "CRITICAL - ". $row->{value}. "\n";
+                print $row->{value}. "\n";
                 exit 2;
             }
             #Warning
             elsif(  ( defined $warn_min && $row->{'value'} < $warn_min  )
                 ||  ( defined $warn_max && $row->{'value'} > $warn_max ) ) {
-                print "WARNING - $row->{value}\n";
+                print "$row->{value}\n";
                 exit 1;
             }
             else {
-                print "OK - $row->{value}\n";
+                print "$row->{value}\n";
                 exit 0;
             }
             #exit 3;
        }
     }
-    print "UNKNOWN - No matching rows found\n"; #search Not found...
+    print "No matching rows found\n"; #search Not found...
     exit 3;
 }
 
