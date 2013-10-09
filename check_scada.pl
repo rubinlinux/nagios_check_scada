@@ -23,15 +23,15 @@ if( $options{'help'}
        )
     ) {
     print "Usage: check_scada.pl --url=<url> <--address=<scada_address>|--description=<description>> --critical=<min>:<max> --warn=<min>:<max>\n";
-    exit 10;
+    exit 3;
 }
 if(defined $options{'critical'} && $options{'critical'} !~ /^\d+(\.\d+)?\:\d+(\.\d+)?$/) {
     print "Critical value not in required format: 'lower:upper'\n";
-    exit 1;
+    exit 3;
 }
 if(defined $options{'warning'} && $options{'warning'} !~ /^\d+(\.\d+)?\:\d+(\.\d+)?$/) {
     print "Warning value not in required format: 'lower:upper'\n";
-    exit 1;
+    exit 3;
 }
   
 sub readin {
@@ -102,20 +102,23 @@ sub process_box {
                || ( defined $crit_min && $row->{'value'} < $crit_min )
                || ( defined $crit_max && $row->{'value'} > $crit_max) ) {
                 print "CRITICAL - ". $row->{value}. "\n";
+                exit 2;
             }
             #Warning
             elsif(  ( defined $warn_min && $row->{'value'} < $warn_min  )
                 ||  ( defined $warn_max && $row->{'value'} > $warn_max ) ) {
                 print "WARNING - $row->{value}\n";
+                exit 1;
             }
             else {
                 print "OK - $row->{value}\n";
+                exit 0;
             }
-            exit;
+            #exit 3;
        }
     }
     print "UNKNOWN - No matching rows found\n"; #search Not found...
-    exit;
+    exit 3;
 }
 
 process_box($options{'url'});
